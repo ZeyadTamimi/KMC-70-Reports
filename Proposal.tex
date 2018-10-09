@@ -1,0 +1,156 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper]{geometry}
+\usepackage[myheadings]{fullpage}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{graphicx, wrapfig, subcaption, setspace, booktabs}
+\usepackage[T1]{fontenc}
+\usepackage[font=small, labelfont=bf]{caption}
+\usepackage{fourier}
+\usepackage[protrusion=true, expansion=true]{microtype}
+\usepackage[english]{babel}
+\usepackage{sectsty}
+\usepackage{url, lipsum}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\onehalfspacing
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+
+%-------------------------------------------------------------------------------
+% HEADER & FOOTER
+%-------------------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\setlength\headheight{15pt}
+\fancyhead[L]{MDA}
+\fancyhead[R]{TODO}
+\fancyfoot[R]{Page \thepage\ of \pageref{LastPage}}
+%-------------------------------------------------------------------------------
+% TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\begin{document}
+
+\title{
+    \normalsize \textsc{Project Proposal for MDA Corporation}
+    \\ [2.0cm]
+    \HRule{0.5pt} \\
+    \LARGE \textbf{\uppercase{Scalable Mission Planning for Satellites}}
+	\HRule{2pt} \\ [0.5cm]
+	\normalsize \today \vspace*{5\baselineskip}
+}
+
+\date{}
+
+\author{
+    James Asefa \\ Student Number 31826167
+    \and
+    Ray Li \\ Student Number 52591120
+    \and
+    Roy Rouyani \\ Student Number 12504149
+    \and 
+    Lise Savard \\ Student Number 12504149
+    \and
+    Zeyad Tamimi \\ Student Number 12504149
+}
+
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+%-------------------------------------------------------------------------------
+% Section title formatting
+\sectionfont{\scshape}
+%-------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------
+% BODY
+%-------------------------------------------------------------------------------
+
+\section*{Executive Summary}
+\addcontentsline{toc}{section}{Executive Summary}
+Traditional satellite mission planning methods have been unable to scale with the increasing numbers of satellites in orbit, as well as their increasing complexity. A more scalable approach to mission planning would have great business value to the space sector.
+As members of the ECE Capstone course, our group will be working in collaboration with MDA Corporation to create a new, scalable satellite mission planning suite. This document will outline the goals and success metrics for the project, as well propose a stage-by-stage timeline.
+
+
+\newpage
+\section*{Background}
+\addcontentsline{toc}{section}{Background}
+One of the most important problems to solve in the field of satellite imaging is the satellite-to-site visibility problem. This problem refers to the ability to determine whether a site or area can be viewed from a satellite and imaged (either in part or whole). Traditionally, this problem has been solved using brute force methods in which the trajectory of the satellite and its visibility cones are computed several hundred times each period. This renders the computation extremely expensive. With the current industry trend to move satellite planning and tasking software onto the satellite, the current algorithms are unfeasible. This is due to the strict power budgets on the payloads.
+
+Currently, all implementations of this brute force algorithm must be run on powerful servers on the ground side. In order to achieve the client's desire for intelligent Earth imaging task scheduling a more scale-able approach to this problem must be formulated. Presently, there are many researchers who claimed to have developed algorithms to speed up the resolution of the satellite-to-site visibility. 
+The client and the team are particularly interested in a self adapting Hermite interpolation algorithm developed by HAN Chao, GAO Xiaojie, and SUN Xiucong\cite{paper}. This algorithm boasts a 98\% improvement over current brute force methods. However, this proposed algorithm is only capable of resolving a point-site rather than an area. Additionally, the current algorithms rely on a generic modeling of the satellites, their sensor arrays, and their operating parameters. In effect, they rely on modeling the satellite as a point with a downward facing FOV perpendicular to the ground. Given the vast arrays of sensors on modern satellite and their various limitations and operating parameters, it is clear that the current models are insufficient and a new database of sensor models needs to be compiled.
+
+\newpage
+\section*{Outcomes}
+\addcontentsline{toc}{section}{Outcomes}
+
+
+\newpage
+\section*{Deliverables}
+\addcontentsline{toc}{section}{Deliverables}
+
+\newpage
+\section*{Budget}
+\addcontentsline{toc}{section}{Budget}
+
+\newpage
+\section*{Project Management}
+\addcontentsline{toc}{section}{Project Management}
+
+\subsection*{Team Structure}
+Based on the objectives and deliverable, the team will be divided into the following sub teams:
+\begin{itemize}
+    \item Algorithm Development Team
+    \item Services Team - Responsible for ensuring the product meets the client API specification
+    \item Modeling Team
+\end{itemize}
+
+Based on the various strengths and weaknesses of the members of the team the following structure is proposed:
+//TODO Add draw.io diagram showing team hierarchy.
+
+\subsubsection*{Conflict Resolution}
+//TODO
+
+\subsection*{Project Plan}
+The project will be developed in a modular staged fashion. Each stage is self contained and iterative, such that at any given phase, the application under development completely fulfills a subset of the requirements. 
+
+\subsubsection*{Phase 1: Initial Algorithm Development \hfill 22/10/2018}
+As was discussed in Background sections, the first  phase will address the inefficient satellite-to-site algorithm. A newly proposed algorithm[1] developed by HAN Chao, GAO Xiaojie, and SUN Xiucong will be used. 
+In the first part of the algorithm, define a minimum elevation angle and use the geometry to come up with the time intervals in which the view cone can be obtained.
+Pass the time intervals into the second part of the algorithm(Interpolation) along with a site position and velocity, a satellite position and a velocity obtained from an analytical orbit propagator (STK simulator), and the minimum elevation angle obtained earlier.
+Client wants a drop-in replacement, preferably written in Python (v2.7), that conforms to a strict API that they will provide.
+
+\subsubsection*{Phase 2: Area Visibility \hfill 22/10/2018}
+ The proposed algorithm from Phase 1 is primarily designed to check the visibility of a fixed point rather than an area. Thus the algorithm would have to be extended while retaining its speed.
+Change the algorithm so that can get the input as an area instead of a point 
+
+\subsubsection*{Phase 3: Sensor Modeling \hfill 22/10/2018}
+A new satellite  instrument model database has to be constructed to accurately model each sensor and their operating parameters. This data will be used in the later stages of the project
+Model satellite sensors: include the unique features and capabilities of each sensor
+
+\subsubsection*{Phase 4: Sensor Area Visibility \hfill 22/10/2018}
+The area visibility code is now augmented such that the satellite's FOV changes depending on the selected and onboard sensors. 
+
+\subsubsection*{Phase 5: Full Service Requests \hfill 22/10/2018}
+Improve the algorithm from phase 2 to list the best satellites to image an area over a given time interval. 
+Final project specs:
+Given a request to image a region of earth over a given time period, our service would return a list of all the satellites that could service that imaging request along with the timeframes for each satellite.
+
+\subsection*{Project Risks}
+// TODO
+
+%-------------------------------------------------------------------------------
+% REFERENCES
+%-------------------------------------------------------------------------------
+\newpage
+\addcontentsline{toc}{section}{References}
+\begin{thebibliography}{9}
+\bibitem{paper} C. Han, X. Gao and X. Sun, "Rapid satellite-to-site visibility determination based on self-adaptive interpolation technique", Science China Technological Sciences, vol. 60, no. 2, pp. 264-270, 2016. 
+\end{thebibliography}
+\end{document}
